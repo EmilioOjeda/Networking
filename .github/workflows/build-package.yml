@@ -1,0 +1,40 @@
+name: Build Package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize]
+    branches: [main, feature/**, fix/**, ci/**, docs/**, misc/**]
+      
+jobs:
+  build-and-test:
+    name: Build for ${{ matrix.xcode-version }}
+    strategy:
+      matrix:
+        xcode-version: ['Xcode_16.4', 'Xcode_26_beta']
+    runs-on: macos-15
+    env:
+      DEVELOPER_DIR: /Applications/${{ matrix.xcode-version }}.app/Contents/Developer
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Swift Version
+        run: echo "$(swift --version | head -n 1)"
+      
+      - name: SwiftLint
+        run: |
+          echo "Installing SwiftLint..."
+          brew install swiftlint 2>/dev/null && true
+          
+          echo "SwiftLint: v$(swiftlint version)" || echo "SwiftLint is NOT installed"
+          
+          echo "Linting Swift files..."
+          swiftlint lint --strict
+      
+      - name: Build
+        run: swift build
+      
+      - name: Test
+        run: swift test --enable-code-coverage
