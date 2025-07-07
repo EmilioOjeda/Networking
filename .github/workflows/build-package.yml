@@ -3,10 +3,17 @@ name: Build Package
 on:
   push:
     branches: [main]
+    paths: &code-paths
+      - 'Sources/**'
+      - 'Tests/**'
+      - 'Package.swift'
+      - '.swift-version'
+      - '.swiftlint.yml'
   pull_request:
     types: [opened, synchronize]
     branches: [main, feature/**, fix/**, ci/**, docs/**, misc/**]
-      
+    paths: *code-paths
+
 jobs:
   build-and-test:
     name: Build for ${{ matrix.xcode-version }}
