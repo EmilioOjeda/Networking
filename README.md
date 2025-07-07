@@ -19,7 +19,7 @@ import PackageDescription
 let package = Package(
   name: "YourPackage",
   dependencies: [
-    .package(url: "https://github.com/EmilioOjeda/Networking.git", from: "0.0.0"),
+    .package(url: "https://github.com/EmilioOjeda/Networking.git", from: "1.0.0"),
   ],
   targets: [
     .target(
