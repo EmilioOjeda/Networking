@@ -82,7 +82,7 @@ A result-builder–powered wrapper around `URLRequest`, assembling components in
 **Components**:
 
 + `Url` ― URL path and query
-+ `Method` ― HTTP methods (`.GET`, `.POST`, etc.)
++ `Method` ― HTTP methods (`.get`, `.post`, etc.)
 + `Header` & `Headers` ― Single and multiple header values with common constructors
 + `Body` ― Encodable payloads (`JSON`, `FormUrlEncoded`)
 
